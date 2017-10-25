@@ -39,23 +39,8 @@ def Subtracthp():
 		msg.showinfo('Error', "Health cannot go past 0")
 	else:
 		currenthp.set(int(currenthp.get())-1)
-def experiencesubmit():
-	if (experiencefield.get()[1] == "-"):
-		value=int(experienceentery.get())
-		print(value)
-		new=experiencevalue.get()-value
-		print(new)
-		new=int(new)
-		experiencevalue.set(new)
-		#experiencevalue.set(str(int(experiencevalue)-int(experienceentery.get()[0:len(experienceentery.get())])))
-	else:
-		value=int(experienceentery.get())
-		print(value)
-		new=experiencevalue.get()+value
-		print(new)
-		new=int(new)
-		experiencevalue.set(new)
-		#experiencevalue.set(str(int(experiencevalue)+int(experiencefield.get())))
+def experiencesubmit(event=None):
+	experiencevalue.set(int(experiencevalue.get()+int(experienceentery.get())))
 	experienceentery.set("")
 
 #######################################################################
@@ -109,6 +94,7 @@ experiencelabel=Label(root,text="Experience:")
 experiencevaluelabel=Label(root,textvariable=experiencevalue)
 experiencefield=Entry(root,textvar=experienceentery,width=8)
 experiencesubmitbutton=Button(root,text="Submit",command=experiencesubmit)
+experiencefield.bind("<Return>", experiencesubmit)
 
 #Inventory
 '''scrollbar = Scrollbar(root)
