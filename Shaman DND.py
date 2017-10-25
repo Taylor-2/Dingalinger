@@ -45,13 +45,22 @@ def experiencesubmit(event=None):
 
 #######################################################################
 #Temporary Variables
+
 firstname="Beppo"
 lastname="McLastname"
 race="Gnome"
 classvar="Wizard"
+
 maxhp="8"
 currenthp=4
+
 temp=45678
+
+cp=1
+sp=1
+gp=1
+ep=1
+pp=1
 ########################################################################
 
 #Initializing variable for Tkinter
@@ -85,7 +94,6 @@ numberofdies.bind("<Delete>", reset_roll)
 #Health
 hplabel=Label(root,text="Max HP: " + maxhp + "\nCurrent HP: ")
 currenthplabelvar=Label(root,textvariable=currenthp)
-#currenthplabel=Label(root,text="Current HP: ")
 addhpbutton=Button(root,text="+",command=Addhp)
 subtracthpbutton=Button(root,text="-",command=Subtracthp)
 
@@ -95,6 +103,9 @@ experiencevaluelabel=Label(root,textvariable=experiencevalue)
 experiencefield=Entry(root,textvar=experienceentery,width=8)
 experiencesubmitbutton=Button(root,text="Submit",command=experiencesubmit)
 experiencefield.bind("<Return>", experiencesubmit)
+
+#Money
+
 
 #Inventory
 '''scrollbar = Scrollbar(root)
