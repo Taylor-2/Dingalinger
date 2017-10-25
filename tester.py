@@ -21,10 +21,44 @@ def converter(event=None):
 	money.set(total)
 	entery.set("")
 	typedropdown.set("Gold")
+	allmoney1()
 
-def allmoney():
+def allmoney1():
+	final=""
 	total=money.get()
-	while(((total/1000)%2)
+	pp=total/1000
+	pptot=0
+	while(pp>1):
+		pptot+=1
+		pp-=1
+	final+=str(pptot) + " PP, "
+	ep=pp*2
+	eptot=0
+	while(ep>1):
+		eptot+=1
+		ep-=1
+	final+=str(eptot) + " EP, "
+	gp=ep*5
+	gptot=0
+	while(gp>1):
+		gptot+=1
+		gp-=1
+	final+=str(gptot) + " GP, "
+	sp=gp*10
+	sptot=0
+	while(sp>1):
+		sptot+=1
+		sp-=1
+	final+=str(sptot) + " SP, "
+	cp=sp*10
+	cptot=0
+	while(cp>1):
+		cptot+=1
+		cp-=1
+	final+=str(cptot) + " CP, "
+	print(final)
+	allmoney.set(final)
+
 
 money=IntVar()
 money.set(1260)
@@ -33,7 +67,7 @@ entery.set("")
 typedropdown=StringVar()
 typedropdown.set("Gold")
 allmoney=StringVar()
-allmoney.set("")
+allmoney.set(str(money.get()))
 
 
 updatinglabel=Label(root,textvariable=allmoney)
