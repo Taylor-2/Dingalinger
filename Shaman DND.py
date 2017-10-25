@@ -6,9 +6,9 @@ import tkinter.messagebox as msg
 
 root=Tk()
 #background for tkinter
-background_image=PhotoImage(file= "C:\\Users\\Mark\\Documents\\GitHub\\Dingalinger\\background.gif")
-background_label = Label(root, image=background_image)
-background_label.place(x=0, y=0, relwidth=1, relheight=1)
+#background_image=PhotoImage(file= "background.gif")
+#background_label = Label(root, image=background_image)
+#background_label.place(x=0, y=0, relwidth=1, relheight=1)
 #Initialization variables
 dieroll=[]
 

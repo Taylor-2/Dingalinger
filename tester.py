@@ -3,31 +3,50 @@ import tkinter.messagebox as msg
 
 root=Tk()
 
-currenthp=StringVar()
-currenthp.set("3")
-maxhp="8"
+def converter(event=None):
+	amount=int(entery.get())
+	selectedtype=typedropdown.get()
+	total=money.get()
 
-def Addhp():
-	if (int(currenthp.get()) == int(maxhp)):
-		msg.showinfo('Error', "Health cannot go past max value (" + maxhp + ")")
-	else:
-		currenthp.set(int(currenthp.get())+1)
-def Subtracthp():
-	if (int(currenthp.get()) == 0):
-		msg.showinfo('Error', "Health cannot go past 0")
-	else:
-		currenthp.set(int(currenthp.get())-1)
+	if (selectedtype == "Copper"):
+		total += amount
+	elif(selectedtype == "Silver"):
+		total += (amount*10)
+	elif(selectedtype == "Gold"):
+		total += (amount*100)
+	elif(selectedtype == "Electrum"):
+		total += (amount*500)
+	elif(selectedtype == "Platinum"):
+		total += (amount*1000)
+	money.set(total)
+	entery.set("")
+	typedropdown.set("Gold")
 
-maxhplabel=Label(root,text="Max HP: " + maxhp)
-currenthplabelvar=Label(root,textvariable=currenthp)
-currenthplabel=Label(root,text="Current HP: ")
-addhpbutton=Button(root,text="+",command=Addhp)
-subtracthpbutton=Button(root,text="-",command=Subtracthp)
+def allmoney():
+	total=money.get()
+	while(((total/1000)%2)
 
-maxhplabel.pack()
-currenthplabel.pack()
-currenthplabelvar.pack()
-addhpbutton.pack()
-subtracthpbutton.pack()
+money=IntVar()
+money.set(1260)
+entery=StringVar()
+entery.set("")
+typedropdown=StringVar()
+typedropdown.set("Gold")
+allmoney=StringVar()
+allmoney.set("")
+
+
+updatinglabel=Label(root,textvariable=allmoney)
+#staticlabel=Label(root,textvariable=typedropdown)
+amount=Entry(root,textvariable=entery)
+amount.bind("<Return>",converter)
+button=Button(root,text="Submit",command=converter)
+typedrop=OptionMenu(root, typedropdown, "Copper", "Silver", "Gold", "Electrum", "Platinum")
+
+typedrop.pack()
+updatinglabel.pack()
+#staticlabel.pack()
+amount.pack()
+button.pack()
 
 mainloop()
