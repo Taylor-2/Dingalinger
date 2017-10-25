@@ -5,6 +5,10 @@ from random import *
 import tkinter.messagebox as msg
 
 root=Tk()
+#background for tkinter
+background_image=PhotoImage(file= "C:\\Users\\Mark\\Documents\\GitHub\\Dingalinger\\background.gif")
+background_label = Label(root, image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
 #Initialization variables
 dieroll=[]
 
@@ -92,7 +96,7 @@ numberofdies.bind("<Return>", roll)
 numberofdies.bind("<Delete>", reset_roll)
 
 #Health
-hplabel=Label(root,text="Max HP: " + maxhp + "\nCurrent HP: ")
+hplabel=Label(root,text="Max HP: %s \nCurrent HP: " % maxhp)
 currenthplabelvar=Label(root,textvariable=currenthp)
 addhpbutton=Button(root,text="+",command=Addhp)
 subtracthpbutton=Button(root,text="-",command=Subtracthp)
