@@ -30,13 +30,33 @@ def reset_roll(event=None):
 	numdies.set(1)
 	rollresult.set("Result")
 def Addhp():
-	currenthp=currenthp.get()
-	currenthp=int(currenthp)
-	currenthp += 1
-	currenthp=str(currenthp)
-	currenthp.set(currenthp)
+	if (int(currenthp.get()) == int(maxhp)):
+		msg.showinfo('Error', "Health cannot go past max value (" + maxhp + ")")
+	else:
+		currenthp.set(int(currenthp.get())+1)
 def Subtracthp():
-	currenthp.set(str(int(currenthp.get() -1)))
+	if (int(currenthp.get()) == 0):
+		msg.showinfo('Error', "Health cannot go past 0")
+	else:
+		currenthp.set(int(currenthp.get())-1)
+def experiencesubmit():
+	if (experiencefield.get()[1] == "-"):
+		value=int(experienceentery.get())
+		print(value)
+		new=experiencevalue.get()-value
+		print(new)
+		new=int(new)
+		experiencevalue.set(new)
+		#experiencevalue.set(str(int(experiencevalue)-int(experienceentery.get()[0:len(experienceentery.get())])))
+	else:
+		value=int(experienceentery.get())
+		print(value)
+		new=experiencevalue.get()+value
+		print(new)
+		new=int(new)
+		experiencevalue.set(new)
+		#experiencevalue.set(str(int(experiencevalue)+int(experiencefield.get())))
+	experienceentery.set("")
 
 #######################################################################
 #Temporary Variables
@@ -56,10 +76,12 @@ dietype=StringVar()
 dietype.set("Pick")
 rollresult=StringVar()
 rollresult.set("Result")
-experiencepoints=IntVar()
-experiencepoints.set(temp)
+experienceentery=StringVar()
+experienceentery.set("")
+experiencevalue=IntVar()
+experiencevalue.set(45678)
 currenthp=StringVar()
-currenthp.set("8")
+currenthp.set("3")
 
 #########################################################################
 #Creating Tkinter modules
@@ -76,15 +98,17 @@ numberofdies.bind("<Return>", roll)
 numberofdies.bind("<Delete>", reset_roll)
 
 #Health
-maxhplabel=Label(root,text="Max HP: " + maxhp)
-currenthplabel=Label(root,text="Current HP: " + str(currenthp.get()))
+hplabel=Label(root,text="Max HP: " + maxhp + "\nCurrent HP: ")
+currenthplabelvar=Label(root,textvariable=currenthp)
+#currenthplabel=Label(root,text="Current HP: ")
 addhpbutton=Button(root,text="+",command=Addhp)
 subtracthpbutton=Button(root,text="-",command=Subtracthp)
 
 #Experience
 experiencelabel=Label(root,text="Experience:")
-experiencefield=Entry(root,textvar=experiencepoints,width=8)
-levelupbutton=Button(root,text="Level Up")
+experiencevaluelabel=Label(root,textvariable=experiencevalue)
+experiencefield=Entry(root,textvar=experienceentery,width=8)
+experiencesubmitbutton=Button(root,text="Submit",command=experiencesubmit)
 
 #Inventory
 '''scrollbar = Scrollbar(root)
@@ -103,25 +127,24 @@ scrollbar.config(command=inventory.yview)'''
 
 ###################################################################################################
 #Display Tkinter modules
-'''name.grid(row=0,columnspan=2,column=0,sticky=W,padx=20)
-info.grid(row=1,columnspan=2,column=0,sticky=W,padx=20)
+name.grid(row=0,columnspan=4,column=0,sticky=SW)
+info.grid(row=1,columnspan=4,column=0,sticky=NW)
 
-numberofdies.grid(row=0,column=2)
-thedietype.grid(row=0,column=3)
-rollbutton.grid(row=1,column=3)
-rollresultlabel.grid(row=1,column=2)
+numberofdies.grid(row=0,column=4)
+thedietype.grid(row=0,column=5,columnspan=2)
+rollbutton.grid(row=1,column=5,columnspan=2)
+rollresultlabel.grid(row=1,column=4)
 
-maxhplabel.grid(row=0,column=4)
-currenthplabel.grid(row=1,column=4)
+hplabel.grid(row=0,column=7,columnspan=2)
+currenthplabelvar.grid(row=0,column=9,sticky=SW)
+addhpbutton.grid(row=1,column=7,sticky=EW)
+subtracthpbutton.grid(row=1,column=8,columnspan=2,sticky=EW)
 
-experiencelabel.grid(row=0,columnspan=2,column=5)
-experiencefield.grid(row=1,columnspan=2,column=6)
-#levelupbutton.pack()'''
+experiencelabel.grid(row=0,column=10)
+experiencefield.grid(row=1,column=10)
+experiencesubmitbutton.grid(row=1,column=11)
+experiencevaluelabel.grid(row=0,column=11,sticky=W)
 
-maxhplabel.pack()
-currenthplabel.pack()
-addhpbutton.pack()
-subtracthpbutton.pack()
 
 
 mainloop()
