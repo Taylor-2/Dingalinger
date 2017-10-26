@@ -1,0 +1,18 @@
+0-firstname
+1-lastname
+2-race
+3-class
+4-experience
+5-strength
+6-dexterity
+7-constitution
+8-intelligence
+9-wisdom
+10-charisma
+11-proficiency bonous
+12-passive wisdom
+13-Armor class
+14-initiative
+15-speed
+16-HP
+17-Current HP

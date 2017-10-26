@@ -3,15 +3,25 @@ import os
 import time
 from random import *
 import tkinter.messagebox as msg
-
+info=[]
+###########################################################################################################################
 root=Tk()
+
 #background for tkinter
 #background_image=PhotoImage(file= "background.gif")
 #background_label = Label(root, image=background_image)
 #background_label.place(x=0, y=0, relwidth=1, relheight=1)
-#Initialization variables
+
 dieroll=[]
 
+def initial():
+	global info
+	#Character Info
+	file=open("back\\Info.txt","r")
+	info=file.readlines()
+	file.close
+def remove_n(value):
+	return value[0:len(value)-1]
 def roll(event=None):
 	global dieroll
 	ctr=0
@@ -33,41 +43,39 @@ def reset_roll(event=None):
 	dietype.set("Pick")
 	numdies.set(1)
 	rollresult.set("Result")
-def Addhp():
-	if (int(currenthp.get()) == int(maxhp)):
+def HP(event=None):
+	hp = int(currenthp.get())
+	if(hpentery.get()[0] == "+"):
+		hp += int(hpentery.get()[1:len(hpentery.get())])
+	elif(hpentery.get()[0] == "-"):
+		hp -= int(hpentery.get()[1:len(hpentery.get())])
+	if(hp > int(maxhp)):
 		msg.showinfo('Error', "Health cannot go past max value (" + maxhp + ")")
 	else:
-		currenthp.set(int(currenthp.get())+1)
-def Subtracthp():
-	if (int(currenthp.get()) == 0):
-		msg.showinfo('Error', "Health cannot go past 0")
-	else:
-		currenthp.set(int(currenthp.get())-1)
+		currenthp.set(hp)
+	hpentery.set("")
+	if(int(currenthp.get()) < (-1*int(maxhp))):
+		msg.showinfo('Uh-Oh', "You are dead! :(")
+	elif(int(currenthp.get())<0):
+		pass
+		#This is where we will put in the stuff to make saving throws
+
 def experiencesubmit(event=None):
 	experiencevalue.set(int(experiencevalue.get()+int(experienceentery.get())))
 	experienceentery.set("")
+initial()
 
-#######################################################################
+###########################################################################################################################
 #Temporary Variables
-
-firstname="Beppo"
-lastname="McLastname"
-race="Gnome"
-classvar="Wizard"
-
-maxhp="8"
-currenthp=4
-
-temp=45678
-
 cp=1
 sp=1
 gp=1
 ep=1
 pp=1
-########################################################################
 
+###########################################################################################################################
 #Initializing variable for Tkinter
+maxhp=remove_n(info[16])
 numdies=IntVar()
 numdies.set(1)
 dietype=StringVar()
@@ -77,15 +85,18 @@ rollresult.set("Result")
 experienceentery=StringVar()
 experienceentery.set("")
 experiencevalue=IntVar()
-experiencevalue.set(45678)
+experiencevalue.set(remove_n(info[4]))
 currenthp=StringVar()
-currenthp.set("3")
+currenthp.set(remove_n(info[17]))
+hpentery=StringVar()
+hpentery.set("")
 
-#########################################################################
+###########################################################################################################################
 #Creating Tkinter modules
+
 #Name + Class + Race
-name=Label(root,text=firstname + " " + lastname)
-info=Label(root,text="The " + classvar + " " + race)
+name=Label(root,text=remove_n(info[0]) + " " + remove_n(info[1]))
+raceandclass=Label(root,text="The " + remove_n(info[2]) + " " + remove_n(info[3]))
 
 #Die Roller
 numberofdies=Entry(root,textvar=numdies,width=3)
@@ -98,8 +109,9 @@ numberofdies.bind("<Delete>", reset_roll)
 #Health
 hplabel=Label(root,text="Max HP: %s \nCurrent HP: " % maxhp)
 currenthplabelvar=Label(root,textvariable=currenthp)
-addhpbutton=Button(root,text="+",command=Addhp)
-subtracthpbutton=Button(root,text="-",command=Subtracthp)
+hpedit=Entry(root,textvariable=hpentery,width=10)
+hpedit.bind("<Return>",HP)
+
 
 #Experience
 experiencelabel=Label(root,text="Experience:")
@@ -110,42 +122,62 @@ experiencefield.bind("<Return>", experiencesubmit)
 
 #Money
 
-
 #Inventory
-'''scrollbar = Scrollbar(root)
-scrollbar.grid(column=8,rowspan=2,row=0)
 
-ctr =0
-while(ctr < 50):
-	inventory.append(ctr)
-	ctr += 1
+#Spells
 
-inventory = Listbox(root)
-inventory.grid(column=7,rowspan=2,row=0)
+#Armor Class
+armorlabel=Label(root,text="Armor\nClass")
+armor=Label(root,text=str(remove_n(info[13])))
 
-inventory.config(yscrollcommand=scrollbar.set)
-scrollbar.config(command=inventory.yview)'''
 
-###################################################################################################
+#Speed
+speedlabel=Label(root,text="Speed")
+speed=Label(root,text=remove_n(info[15]))
+
+#Initiative
+initiativelabel=Label(root,text="Initiative")
+initiative=Label(root,text=str(remove_n([14])))
+
+#Modifiers
+
+
+#Traits
+
+
+###########################################################################################################################
 #Display Tkinter modules
-name.grid(row=0,columnspan=4,column=0,sticky=SW)
-info.grid(row=1,columnspan=4,column=0,sticky=NW)
 
+#Name
+name.grid(row=0,columnspan=4,column=0,sticky=SW)
+raceandclass.grid(row=1,columnspan=4,column=0,sticky=NW)
+
+#Dice
 numberofdies.grid(row=0,column=4)
 thedietype.grid(row=0,column=5,columnspan=2)
-rollbutton.grid(row=1,column=5,columnspan=2)
-rollresultlabel.grid(row=1,column=4)
+#rollbutton.grid(row=1,column=5,columnspan=2)
+rollresultlabel.grid(row=1,column=4,columnspan=3)
 
+#Health
 hplabel.grid(row=0,column=7,columnspan=2)
 currenthplabelvar.grid(row=0,column=9,sticky=SW)
-addhpbutton.grid(row=1,column=7,sticky=EW)
-subtracthpbutton.grid(row=1,column=8,columnspan=2,sticky=EW)
+hpedit.grid(row=1,column=7,columnspan=3)
 
-experiencelabel.grid(row=0,column=10)
-experiencefield.grid(row=1,column=10)
-experiencesubmitbutton.grid(row=1,column=11)
-experiencevaluelabel.grid(row=0,column=11,sticky=W)
+#Experience
+experiencelabel.grid(row=0,column=10,columnspan=2)
+experiencefield.grid(row=1,column=10,columnspan=2)
+experiencesubmitbutton.grid(row=1,column=12)
+experiencevaluelabel.grid(row=0,column=12,sticky=W)
 
+#Initiative brick
+armorlabel.grid(row=2,column=0)
+armor.grid(row=3,column=0)
+initiativelabel.grid(row=2,column=1,columnspan=2)
+initiative.grid(row=3,column=1,columnspan=2)
+speedlabel.grid(row=2,column=3)
+speed.grid(row=3,column=3)
+
+#Money
 
 
 mainloop()
