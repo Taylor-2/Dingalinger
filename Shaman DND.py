@@ -59,7 +59,6 @@ def HP(event=None):
 	elif(int(currenthp.get())<0):
 		pass
 		#This is where we will put in the stuff to make saving throws
-
 def experiencesubmit(event=None):
 	experiencevalue.set(int(experiencevalue.get()+int(experienceentery.get())))
 	experienceentery.set("")
@@ -100,7 +99,7 @@ raceandclass=Label(root,text="The " + remove_n(info[2]) + " " + remove_n(info[3]
 
 #Die Roller
 numberofdies=Entry(root,textvar=numdies,width=3)
-thedietype=OptionMenu(root, dietype, "D4", "D6", "D8", "D12", "D10", "D20")
+thedietype=OptionMenu(root, dietype, "D4", "D6", "D8", "D12", "D10", "D20","D100")
 rollbutton=Button(root,text="Roll", command=roll)
 rollresultlabel=Label(root,textvar=rollresult)
 numberofdies.bind("<Return>", roll)
