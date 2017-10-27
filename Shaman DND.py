@@ -4,24 +4,43 @@ import time
 from random import *
 import tkinter.messagebox as msg
 info=[]
+moneylist=[]
 ###########################################################################################################################
 root=Tk()
 
 #background for tkinter
-#background_image=PhotoImage(file= "background.gif")
+#background_image=PhotoImage(file= "back\\background.gif")
 #background_label = Label(root, image=background_image)
 #background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 dieroll=[]
 
 def initial():
-	global info
 	#Character Info
+	global info
 	file=open("back\\Info.txt","r")
 	info=file.readlines()
-	file.close
+	file.close()
+
+	#Money
+	global moneylist
+	file=open("back\\Wallet.txt","r")
+	moneylist=file.readlines()
+	file.close()
 def remove_n(value):
 	return value[0:len(value)-1]
+def writemoney():
+	file=open("back\\Wallet.txt","w")
+	file.write(str(cp.get())+"\n"+str(sp.get())+"\n"+str(ep.get())+"\n"+str(ep.get())+"\n"+str(pp.get())+"\n")
+	file.close()
+def writeinfo():
+	info[17] = currenthp.get()
+	file=open("back\\Info.txt","w")
+	ctr=0
+	while(ctr<len(info)):
+		file.write(str(info[ctr]) + "\n")
+		ctr+=1
+	file.close()
 def roll(event=None):
 	global dieroll
 	ctr=0
@@ -45,6 +64,7 @@ def reset_roll(event=None):
 	rollresult.set("Result")
 def HP(event=None):
 	hp = int(currenthp.get())
+	print(hp)
 	if(hpentery.get()[0] == "+"):
 		hp += int(hpentery.get()[1:len(hpentery.get())])
 	elif(hpentery.get()[0] == "-"):
@@ -59,36 +79,98 @@ def HP(event=None):
 	elif(int(currenthp.get())<0):
 		pass
 		#This is where we will put in the stuff to make saving throws
+	writeinfo()
 def experiencesubmit(event=None):
 	experiencevalue.set(int(experiencevalue.get()+int(experienceentery.get())))
 	experienceentery.set("")
+def inputmoney(event=None):
+	if(entery.get()[0] != "-") and (entery.get()[0] != "+"):
+		msg.showinfo('Error', "First value in entry field must be an operator (+/-)")
+	else:
+		if (moneytype.get() == "Copper"):
+			if (entery.get()[0] == "+"):
+				cp.set(cp.get()+int(entery.get()[1:len(entery.get())]))
+			if (entery.get()[0] == "-"):
+				cp.set(cp.get()-int(entery.get()[1:len(entery.get())]))
+		elif(moneytype.get() == "Silver"):
+			if (entery.get()[0] == "+"):
+				sp.set(sp.get()+int(entery.get()[1:len(entery.get())]))
+			if (entery.get()[0] == "-"):
+				sp.set(sp.get()-int(entery.get()[1:len(entery.get())]))
+		elif(moneytype.get() == "Gold"):
+			if (entery.get()[0] == "+"):
+				gp.set(gp.get()+int(entery.get()[1:len(entery.get())]))
+			if (entery.get()[0] == "-"):
+				gp.set(gp.get()-int(entery.get()[1:len(entery.get())]))
+		elif(moneytype.get() == "Electrum"):
+			if (entery.get()[0] == "+"):
+				ep.set(ep.get()+int(entery.get()[1:len(entery.get())]))
+			if (entery.get()[0] == "-"):
+				ep.set(ep.get()-int(entery.get()[1:len(entery.get())]))
+		elif(moneytype.get() == "Platinum"):
+			if (entery.get()[0] == "+"):
+				pp.set(pp.get()+int(entery.get()[1:len(entery.get())]))
+			if (entery.get()[0] == "-"):
+				pp.set(pp.get()-int(entery.get()[1:len(entery.get())]))
+		entery.set("")
+		writemoney()
+def highestvalue(event=None):
+	while(cp.get()>=10):
+		cp.set(int(cp.get()-10))
+		sp.set(int(sp.get()+1))
+	while(sp.get()>=5):
+		sp.set(int(sp.get()-5))
+		ep.set(int(ep.get()+1))
+	while(ep.get()>=2):
+		ep.set(int(ep.get()-2))
+		gp.set(int(gp.get()+1))
+	while(gp.get()>=10):
+		gp.set(int(gp.get()-10))
+		pp.set(int(pp.get()+1))
+	writemoney()
+
 initial()
 
 ###########################################################################################################################
 #Temporary Variables
-cp=1
-sp=1
-gp=1
-ep=1
-pp=1
+
 
 ###########################################################################################################################
 #Initializing variable for Tkinter
-maxhp=remove_n(info[16])
+#Dice
 numdies=IntVar()
 numdies.set(1)
 dietype=StringVar()
 dietype.set("Pick")
 rollresult=StringVar()
 rollresult.set("Result")
+#Experience
 experienceentery=StringVar()
 experienceentery.set("")
 experiencevalue=IntVar()
 experiencevalue.set(remove_n(info[4]))
+#HP
+maxhp=remove_n(info[16])
 currenthp=StringVar()
 currenthp.set(remove_n(info[17]))
+print(currenthp.get())
 hpentery=StringVar()
 hpentery.set("")
+#Money
+cp=IntVar()
+cp.set(remove_n(moneylist[0]))
+sp=IntVar()
+sp.set(remove_n(moneylist[1]))
+ep=IntVar()
+ep.set(remove_n(moneylist[2]))
+gp=IntVar()
+gp.set(remove_n(moneylist[3]))
+pp=IntVar()
+pp.set(remove_n(moneylist[4]))
+entery=StringVar()
+entery.set("")
+moneytype=StringVar()
+moneytype.set("Gold")
 
 ###########################################################################################################################
 #Creating Tkinter modules
@@ -111,24 +193,36 @@ currenthplabelvar=Label(root,textvariable=currenthp)
 hpedit=Entry(root,textvariable=hpentery,width=10)
 hpedit.bind("<Return>",HP)
 
-
 #Experience
 experiencelabel=Label(root,text="Experience:")
 experiencevaluelabel=Label(root,textvariable=experiencevalue)
-experiencefield=Entry(root,textvar=experienceentery,width=8)
+experiencefield=Entry(root,textvariable=experienceentery,width=8)
 experiencesubmitbutton=Button(root,text="Submit",command=experiencesubmit)
 experiencefield.bind("<Return>", experiencesubmit)
 
 #Money
+amount=Entry(root,textvariable=entery,width=10)
+amount.bind("<Return>",inputmoney)
+amount.bind("<Shift Return>",highestvalue)
+typedrop=OptionMenu(root, moneytype, "Copper", "Silver", "Electrum", "Gold", "Platinum")
+cpvaluelabel=Label(root,textvariable=str(cp))
+cplabel=Label(root,text="Copper:")
+spvaluelabel=Label(root,textvariable=str(sp))
+splabel=Label(root,text="Silver:")
+epvaluelabel=Label(root,textvariable=str(ep))
+eplabel=Label(root,text="Electrum:")
+gpvaluelabel=Label(root,textvariable=str(gp))
+gplabel=Label(root,text="Gold:")
+ppvaluelabel=Label(root,textvariable=str(pp))
+pplabel=Label(root,text="Platinum:")
 
 #Inventory
-
+inventoryplaceholder=Entry(root)
 #Spells
-
+spellplaceholder=Entry(root)
 #Armor Class
-armorlabel=Label(root,text="Armor\nClass")
+armorlabel=Label(root,text="Armor")
 armor=Label(root,text=str(remove_n(info[13])))
-
 
 #Speed
 speedlabel=Label(root,text="Speed")
@@ -136,7 +230,7 @@ speed=Label(root,text=remove_n(info[15]))
 
 #Initiative
 initiativelabel=Label(root,text="Initiative")
-initiative=Label(root,text=str(remove_n([14])))
+initiative=Label(root,text=str(remove_n(info[14])))
 
 #Modifiers
 
@@ -177,6 +271,22 @@ speedlabel.grid(row=2,column=3)
 speed.grid(row=3,column=3)
 
 #Money
+typedrop.grid(row=2,column=12)
+amount.grid(row=2,column=10,columnspan=2)
+cpvaluelabel.grid(row=3,column=12,sticky=W)
+cplabel.grid(row=3,column=10,columnspan=2,sticky=E)
+spvaluelabel.grid(row=4,column=12,sticky=W)
+splabel.grid(row=4,column=10,columnspan=2,sticky=E)
+epvaluelabel.grid(row=5,column=12,sticky=W)
+eplabel.grid(row=5,column=10,columnspan=2,sticky=E)
+gpvaluelabel.grid(row=6,column=12,sticky=W)
+gplabel.grid(row=6,column=10,columnspan=2,sticky=E)
+ppvaluelabel.grid(row=7,column=12,sticky=W)
+pplabel.grid(row=7,column=10,columnspan=2,sticky=E)
 
+#Inventory
+inventoryplaceholder.grid(row=2,column=4,columnspan=3)
 
+#Spells
+spellplaceholder.grid(row=2,column=7,columnspan=3)
 mainloop()

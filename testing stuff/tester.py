@@ -33,62 +33,20 @@ def inputfun(event=None):
 			if (entery.get()[0] == "-"):
 				pp.set(pp.get()-int(entery.get()[1:len(entery.get())]))
 		entery.set("")
-def converter(event=None):
-	amount=int(entery.get())
-	total=money.get()
+def highestvalue(event=None):
+	while(cp.get()>=10):
+		cp.set(int(cp.get()-10))
+		sp.set(int(sp.get()+1))
+	while(sp.get()>=5):
+		sp.set(int(sp.get()-5))
+		ep.set(int(ep.get()+1))
+	while(ep.get()>=2):
+		ep.set(int(ep.get()-2))
+		gp.set(int(gp.get()+1))
+	while(gp.get()>=10):
+		gp.set(int(gp.get()-10))
+		pp.set(int(pp.get()+1))
 
-	if (moneytype.get() == "Copper"):
-		total += amount
-	elif(moneytype.get() == "Silver"):
-		total += (amount*10)
-	elif(moneytype.get() == "Gold"):
-		total += (amount*100)
-	elif(moneytype.get() == "Electrum"):
-		total += (amount*500)
-	elif(moneytype.get() == "Platinum"):
-		total += (amount*1000)
-	money.set(total)
-	entery.set("")
-	moneytype.set("Gold")
-	allmoney1()
-def highestconverter():
-	final=""
-	total=money.get()
-	pp=0
-	while(total>1000):
-		pp+=1
-		total-=1000
-	ep=0
-	while(total>1):
-		pptot+=1
-		pp-=1
-	final+=str(pptot) + " PP, "
-	ep=pp*2
-	eptot=0
-	while(ep>1):
-		eptot+=1
-		ep-=1
-	final+=str(eptot) + " EP, "
-	gp=ep*5
-	gptot=0
-	while(gp>1):
-		gptot+=1
-		gp-=1
-	final+=str(gptot) + " GP, "
-	sp=gp*10
-	sptot=0
-	while(sp>1):
-		sptot+=1
-		sp-=1
-	final+=str(sptot) + " SP, "
-	cp=sp*10
-	cptot=0
-	while(cp>1):
-		cptot+=1
-		cp-=1
-	final+=str(cptot) + " CP, "
-	print(final)
-	allmoney.set(final)
 
 money=IntVar()
 money.set(1260)
@@ -113,6 +71,7 @@ pp.set(0)
 updatinglabel=Label(root,textvariable=allmoney)
 amount=Entry(root,textvariable=entery)
 amount.bind("<Return>",inputfun)
+amount.bind("<Shift Return>",highestvalue)
 button=Button(root,text="Submit",command=inputfun)
 typedrop=OptionMenu(root, moneytype, "Copper", "Silver", "Gold", "Electrum", "Platinum")
 cpvaluelabel=Label(root,textvariable=str(cp))
