@@ -5,16 +5,22 @@ from random import *
 import tkinter.messagebox as msg
 info=[]
 moneylist=[]
+dieroll=[]
 ###########################################################################################################################
+#Setting up the window
 root=Tk()
 
-#background for tkinter
+#Window parameters
+root.title("Shaman DND V.3")
+#root.geometry("350x200")
+
+#Background
 #background_image=PhotoImage(file= "back\\background.gif")
 #background_label = Label(root, image=background_image)
 #background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-dieroll=[]
-
+###########################################################################################################################
+#Creating the functions
 def initial():
 	#Character Info
 	global info
@@ -34,11 +40,12 @@ def writemoney():
 	file.write(str(cp.get())+"\n"+str(sp.get())+"\n"+str(ep.get())+"\n"+str(ep.get())+"\n"+str(pp.get())+"\n")
 	file.close()
 def writeinfo():
-	info[17] = currenthp.get()
+	info[17] = str(currenthp.get()) + "\n"
+	info[4]=str(experiencevalue.get())+"\n"
 	file=open("back\\Info.txt","w")
 	ctr=0
 	while(ctr<len(info)):
-		file.write(str(info[ctr]) + "\n")
+		file.write(info[ctr])
 		ctr+=1
 	file.close()
 def roll(event=None):
@@ -64,7 +71,6 @@ def reset_roll(event=None):
 	rollresult.set("Result")
 def HP(event=None):
 	hp = int(currenthp.get())
-	print(hp)
 	if(hpentery.get()[0] == "+"):
 		hp += int(hpentery.get()[1:len(hpentery.get())])
 	elif(hpentery.get()[0] == "-"):
@@ -83,6 +89,7 @@ def HP(event=None):
 def experiencesubmit(event=None):
 	experiencevalue.set(int(experiencevalue.get()+int(experienceentery.get())))
 	experienceentery.set("")
+	writeinfo()
 def inputmoney(event=None):
 	if(entery.get()[0] != "-") and (entery.get()[0] != "+"):
 		msg.showinfo('Error', "First value in entry field must be an operator (+/-)")
@@ -128,7 +135,6 @@ def highestvalue(event=None):
 		gp.set(int(gp.get()-10))
 		pp.set(int(pp.get()+1))
 	writemoney()
-
 initial()
 
 ###########################################################################################################################
@@ -153,7 +159,6 @@ experiencevalue.set(remove_n(info[4]))
 maxhp=remove_n(info[16])
 currenthp=StringVar()
 currenthp.set(remove_n(info[17]))
-print(currenthp.get())
 hpentery=StringVar()
 hpentery.set("")
 #Money
@@ -174,7 +179,6 @@ moneytype.set("Gold")
 
 ###########################################################################################################################
 #Creating Tkinter modules
-
 #Name + Class + Race
 name=Label(root,text=remove_n(info[0]) + " " + remove_n(info[1]))
 raceandclass=Label(root,text="The " + remove_n(info[2]) + " " + remove_n(info[3]))
@@ -289,4 +293,5 @@ inventoryplaceholder.grid(row=2,column=4,columnspan=3)
 
 #Spells
 spellplaceholder.grid(row=2,column=7,columnspan=3)
+
 mainloop()
