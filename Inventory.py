@@ -60,9 +60,9 @@ def edit(event=None):
 inventoryentery=StringVar()
 inventoryentery.set("")
 
-invframe=Frame(root,bd=2,relief=GROOVE)
+invframe=Frame(root, bd=2, relief=GROOVE)
 
-inventorybox = Listbox(root,width=30)
+inventorybox = Listbox(invframe,width=30)
 inventorybox.bind("<Delete>",deleteitem)
 
 invscroll = Scrollbar(invframe)
@@ -73,7 +73,12 @@ inventorybox.bind("<Return>",writenewitem)
 inventery.bind("<Return>",writenewitem)
 inventorybox.bind("<Double-Button-1>",edit)
 
-invframe.pack()
+invscroll.pack(side=RIGHT, fill=Y)
+inventorybox.pack()
+inventery.pack()
+
+invframe.grid(row=1,column=1)
+
 updateinventory()
 
 mainloop()

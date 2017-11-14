@@ -1,0 +1,7 @@
+Spell 12
+2
+time
+range
+comp
+duration
+description

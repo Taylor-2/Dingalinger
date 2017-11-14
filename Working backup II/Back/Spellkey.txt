@@ -1,0 +1,7 @@
+Spell name
+Spell Level
+Spell TIme
+Spell Range
+Spell COmp
+Duration
+Spell Disc

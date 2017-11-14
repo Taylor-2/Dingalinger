@@ -9,7 +9,7 @@ An Arrow of Elvish Design
 25' Rope
 Sling
 Potion of Minor Healing
-Potion of Healing
-Nemgate ID
 My Will
-Nemgate Hoodie
+Potion of Healing
+Neemgate Hoodie
+Nemgate ID
