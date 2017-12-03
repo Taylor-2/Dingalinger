@@ -1,7 +1,0 @@
-Spell 3
-0
-time
-range
-comp
-duration
-description

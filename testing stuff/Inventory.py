@@ -7,13 +7,13 @@ import tkinter.messagebox as msg
 items=[]
 root=Tk()
 def writenewitem(event=None):
-	file=open("Back/Inventory.txt","a")
+	file=open("C:\\Users\\Dexter Hubbard\\Documents\\GitHub\\Dingalinger\\Back\\Inventory.txt","a")
 	file.write(str(inventoryentery.get()) + "\n")
 	file.close()
 	updateinventory()
 def updateinventory():
 	global items
-	file=open("Back/Inventory.txt","r")
+	file=open("C:\\Users\\Dexter Hubbard\\Documents\\GitHub\\Dingalinger\\Back\\Inventory.txt","r")
 	raw=file.readlines()
 	file.close()
 	items=[]
@@ -47,7 +47,7 @@ def deleteitem(event=None):
 			items.append(temp)
 		ctr+=1
 	ctr=0
-	file=open("Back/Inventory.txt","w")
+	file=open("C:\\Users\\Dexter Hubbard\\Documents\\GitHub\\Dingalinger\\Back\\Inventory.txt","w")
 	while(ctr<len(items)):
 		file.write(str(items[ctr])+"\n")
 		ctr+=1
@@ -60,9 +60,9 @@ def edit(event=None):
 inventoryentery=StringVar()
 inventoryentery.set("")
 
-invframe=Frame(root,bd=2,relief=GROOVE)
+invframe=Frame(root, bd=2, relief=GROOVE)
 
-inventorybox = Listbox(root,width=30)
+inventorybox = Listbox(invframe,width=30)
 inventorybox.bind("<Delete>",deleteitem)
 
 invscroll = Scrollbar(invframe)
@@ -73,7 +73,12 @@ inventorybox.bind("<Return>",writenewitem)
 inventery.bind("<Return>",writenewitem)
 inventorybox.bind("<Double-Button-1>",edit)
 
-invframe.pack()
+invscroll.pack(side=RIGHT, fill=Y)
+inventorybox.pack()
+inventery.pack()
+
+invframe.grid(row=1,column=1)
+
 updateinventory()
 
 mainloop()

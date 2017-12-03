@@ -1,0 +1,7 @@
+False Life
+1
+1 Action
+Self
+V, S, M (a small amount of alcohol or distilled spirits)
+1 Hour
+Bolstering yourself with a necromantic facsimile of life, you gain 1d4+4 temporary hit points for the duration. At Higher Levels when you cast this spell using a spell slot of 2nd level or higher, you gain 5 additional temporary hit points for each slot level above 1st.

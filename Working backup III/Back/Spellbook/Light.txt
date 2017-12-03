@@ -1,0 +1,7 @@
+Light
+0
+1 Action
+Touch
+V, M (a firefly or phosphorescent moss)
+1 Hour
+Object must be smaller that 10 cubed. The object sheds a bright light in a 20' radius and dim light for another 20'. The light can be colored whatever color you like. Completely covering the object blocks the light. The spell ends if you cast it again or dismiss it as an action.

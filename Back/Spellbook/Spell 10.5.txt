@@ -1,7 +1,0 @@
-Spell 10.5
-1
-t
-d
-de
-d
-g

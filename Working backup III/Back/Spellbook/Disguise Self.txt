@@ -1,0 +1,7 @@
+Disguise Self
+1
+1 Action
+Self
+V, S
+1 Hour
+You make yourself-including your clothing, armor, weapons, and other belongings on your person-look different untill the spell ends or until you use your action to dismiss it. The spell fails to hold up to physical inspection. To discern that you are disguised, a creature can use its action to inspect your appearance and must succeed on an Intelligence check against your spell save DC.

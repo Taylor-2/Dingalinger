@@ -1,0 +1,9 @@
+Gnomish
+Common
+Daggers
+Darts
+Slings
+Quarterstaff
+Light Crossbows
+Thieves Tools
+Cards

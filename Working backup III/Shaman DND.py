@@ -252,7 +252,7 @@ def windowspell(event=None):
 	rangetop=Label(top,text=spellinfo[3])
 	componentstop=Label(top,text=spellinfo[4])
 	durationtop=Label(top,text=spellinfo[5])
-	descriptiontop=Label(top,text=formatdescription(spellinfo[6]))
+	descriptiontop=Label(top,text=spellinfo[6])
 
 	namelabeltop.grid(column=0,row=1,sticky=W)
 	levellabeltop.grid(column=0,row=2,sticky=W)
@@ -269,20 +269,6 @@ def windowspell(event=None):
 	componentstop.grid(column=1,row=5,sticky=W) 
 	durationtop.grid(column=1,row=6,sticky=W)
 	descriptiontop.grid(column=1,row=7,sticky=W)
-def formatdescription(rawdata):
-	deslist=[]
-	finaldes=""
-	deslist=rawdata.split()
-	leng = 0
-	for x in deslist:
-		leng += len(x)
-		if (leng>60):
-			finaldes += "\n"
-			leng = 0
-		else:
-			finaldes += (x + " ")
-	return (finaldes)
-
 def newspell(event=None):
 	top=tk.Toplevel(root)
 	top.title("New Spell")
@@ -592,12 +578,12 @@ healthframe.grid(row=0,column=3,sticky=NSEW)
 expframe.grid(row=0,column=4,sticky=NSEW)
 #Row 2
 initiativeframe.grid(row=1,column=0,columnspan=2,sticky=NSEW)
-inventoryframe.grid(row=1,column=2,rowspan=3,sticky=NSEW)
-spellframe.grid(row=1,column=3,rowspan=3,sticky=NSEW)
-moneyframe.grid(row=1,column=4,rowspan=2,sticky=NSEW)
+inventoryframe.grid(row=1,column=2,rowspan=3,sticky=NS)
+spellframe.grid(row=1,column=3,rowspan=3,sticky=NS)
+moneyframe.grid(row=1,column=4,rowspan=2)
 #Row 3
-traitsframe.grid(row=2,column=0,rowspan=3,sticky=NSEW)
-proficinciesframe.grid(row=3,column=4,rowspan=2,sticky=NSEW)
+traitsframe.grid(row=2,column=0,rowspan=3,sticky=EW)
+proficinciesframe.grid(row=3,column=4,rowspan=2)
 
 updateinventory()
 updatespells()

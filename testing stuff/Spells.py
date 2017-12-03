@@ -8,7 +8,7 @@ import tkinter.messagebox as msg
 root=Tk()
 ###########################################################################################################################
 def windowspell(event=None):
-	file=open("Back\\Spellbook\\"+str(sortedlist[int(str(spellbox.curselection())[1:(len(str(spellbox.curselection()))-2)])])+".txt","r")
+	file=open("C:\\Users\\Dexter Hubbard\\Documents\\GitHub\\Dingalinger\\Back\\Spellbook\\"+str(sortedlist[int(str(spellbox.curselection())[1:(len(str(spellbox.curselection()))-2)])])+".txt","r")
 	rawspellinfo=file.readlines()
 	file.close()
 	ctr=0
@@ -60,7 +60,7 @@ def newspell(event=None):
 
 	def writenew(event=None):
 		#Check if file exists
-		file=open("Back\\Spellbook\\"+newname.get()+".txt","w")
+		file=open("C:\\Users\\Dexter Hubbard\\Documents\\GitHub\\Dingalinger\\Back\\Spellbook\\"+newname.get()+".txt","w")
 		file.write(newname.get()+"\n")
 		file.write(newlevel.get()+"\n")
 		file.write(newtime.get()+"\n")
@@ -130,7 +130,7 @@ def remove_n(value):
 def updatespells():
 	global spelllist
 	global sortedlist
-	raw=sorted(os.listdir("Back\\Spellbook"))
+	raw=sorted(os.listdir("C:\\Users\\Dexter Hubbard\\Documents\\GitHub\\Dingalinger\\Back\\Spellbook"))
 	spelllist=[]
 
 	#Get and format spellbook into a list
@@ -144,7 +144,7 @@ def updatespells():
 	ctr=0
 	maxlevel=0
 	while(ctr<len(spelllist)):
-		level=int(remove_n(open("back\\Spellbook\\" + spelllist[ctr] +".txt","r").readlines()[1]))
+		level=int(remove_n(open("C:\\Users\\Dexter Hubbard\\Documents\\GitHub\\Dingalinger\\Back\\Spellbook\\" + spelllist[ctr] +".txt","r").readlines()[1]))
 		if (level > maxlevel):
 			maxlevel=level
 		ctr +=1
@@ -160,7 +160,7 @@ def updatespells():
 		ctr2=0
 		while(ctr2<len(spelllist)):
 			temp=spelllist[ctr2]
-			file=open("back\\Spellbook\\" + temp +".txt","r")
+			file=open("C:\\Users\\Dexter Hubbard\\Documents\\GitHub\\Dingalinger\\Back\\Spellbook\\" + temp +".txt","r")
 			level=file.readlines()
 			level=remove_n(level[1])
 			if (int(level) == ctr):
