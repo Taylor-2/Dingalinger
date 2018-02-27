@@ -1,7 +1,7 @@
-Spell name
+Spell Name
 Spell Level
-Spell TIme
+Spell Time
 Spell Range
-Spell COmp
-Duration
-Spell Disc
+Spell Components
+spell Duration
+Spell Description

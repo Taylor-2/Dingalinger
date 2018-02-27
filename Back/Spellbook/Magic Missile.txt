@@ -1,0 +1,7 @@
+Magic Missile
+1
+1 action
+120 feet
+V, S
+Instantaneous
+You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range. The dart's all strike simultaneously, and you can direct them to hit one creature or several. At Highter Levels. When you cast this spell using a spell slot of 2nd level or higher, the spell creates one more dart for each slot above 1st.

@@ -32,6 +32,15 @@ def initial():
 	file.close()
 
 	#Notes
+
+	#Skills
+	global allproficencies
+	file=open("back\\Skills.txt","r")
+	allproficencies=""
+	for x in file.readlines():
+		allproficencies += str(x)
+	file.close()
+
 initial()
 def remove_n(value):
 	return value[0:len(value)-1]
@@ -565,12 +574,42 @@ charismavalue.pack()
 ###########################################################################################################################
 #Frame 																										Proficiencies
 proficinciesframe = Frame(root, bd=2, relief=GROOVE)
-#Var
+#Functions
+def newprof():
+	top=tk.Toplevel(root)
+	top.title("New Proficiency")
+	def addfunc(event=None):
+		allproficencies += newskill.get()
+		quit()
+	def quit(event=None):
+		top.destroy()
+	buttonframe=Frame(top,bd=2,relief=FLAT)
+	newskill=StringVar()
+	newskill.set("")
+	lab=Label(top,text="New Skill: ")
+	ent=Entry(top,textvariable=newskill)
+	add=Button(buttonframe,text="Add Skill",command=addfunc)
+	cancel=Button(buttonframe,text="Cancel",command=quit)
+	ent.bind("<Return>",addfunc)
+	ent.bind("<Escape>",quit)
 
+	lab.grid(row=0,column=0)
+	ent.grid(row=0,column=1)
+	add.grid(row=0,column=1,padx=4)
+	cancel.grid(row=0,column=0,padx=4)
+	buttonframe.grid(row=1,column=0,columnspan=2)
+
+#Var
+allproficencies1=StringVar()
+allproficencies1.set(allproficencies)
 #Widgets
 proflabel=Label(proficinciesframe, text="Proficencies:")
+profvalues=Label(proficinciesframe, text=str(allproficencies1.get()))
+newbutton=Button(proficinciesframe, text="New",command=newprof)
 #Setup
-proflabel.grid(sticky=NW)
+proflabel.grid(row=0,column=0)
+newbutton.grid(row=0,column=1,padx=8)
+profvalues.grid(row=1,column=0,columnspan=2)
 ###########################################################################################################################
 #																														Gap
 #
